@@ -17,7 +17,7 @@ class RandomSejarahTransformer extends TransformerAbstract
          return [
              //
              'nama_slider'		=> $sejarah->sj_nama,
-             'gambar_slider'    => url('/images/'.$sejarah->sj_gambar) 
+             'gambar_slider'    => url('/images/sejarah'.$sejarah->sj_gambar)
          ];
      }
 }

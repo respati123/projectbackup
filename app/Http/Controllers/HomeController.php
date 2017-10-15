@@ -28,16 +28,13 @@ class HomeController extends Controller
     public function index()
     {
 
-        Auth::user()->session_id = \Session::getId();
-        Auth::user()->save();
-        return Auth::user();
-        // $data = [
+        $data = [
 
-        //     'sejarah'   => Sejarah::count(),
-        //     'kategori'  => KategoriSejarah::count()
+            'sejarah'   => Sejarah::count(),
+            'kategori'  => KategoriSejarah::count()
 
-        // ];
+        ];
 
-        // return view('partials.dashboard')->with('data', $data);
+        return view('partials.dashboard')->with('data', $data);
     }
 }

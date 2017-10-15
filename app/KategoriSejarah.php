@@ -37,4 +37,5 @@ class KategoriSejarah extends Model
             
           }
     }
+
 }

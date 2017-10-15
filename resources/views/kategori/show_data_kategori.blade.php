@@ -41,13 +41,17 @@
 		            	<tr>
 							<td>{{ $no++ }}</td>
 		            		<td>{{ $d->ks_nama}}</td>
-		            		<td><a href="{{ URL::to('kategori/' . $d->ks_id . '/edit') }}" class="btn btn-info">Edit</a> | 
-							{{ Form::open(array('url' => 'kategori/' . $d->ks_id)) }}
-			                    {{ Form::hidden('_method', 'DELETE') }}
-			                    {{ Form::submit('Delete', array('class' => 'btn btn-warning')) }}
-			                {{ Form::close() }}
-		            		
-
+		            		<td>
+		            			<div class="container">
+		            				<div class="row">
+			            				<a href="{{ URL::to('kategori/' . $d->ks_id . '/edit') }}" class="btn btn-info">Edit</a> &nbsp &nbsp 
+										{{ Form::open(array('url' => 'kategori/' . $d->ks_id)) }}
+						                    {{ Form::hidden('_method', 'DELETE') }}
+						                    {{ Form::submit('Delete', array('class' => 'btn btn-warning')) }}
+						                {{ Form::close() }}
+			            			</div>
+		            			</div>
+		            		</td>
 		            	</tr>
 		            @endforeach
 		          </tbody>

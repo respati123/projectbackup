@@ -18,7 +18,7 @@ class SejarahControllers extends Controller
 
     public function index()
     {
-        $data = Sejarah::all();
+        $data = Sejarah::orderBy('sj_id','desc')->get();
         return view('sejarah.show_data')->with('data',$data);
     }
 

@@ -52,7 +52,7 @@
 			
 			<label for="Images" class="col-sm-2 col-form-label">Images</label>
 			<div class="col-sm-10">
-					<div><img src="{{asset('images/sejarah/'.$sejarah->sj_gambar)}}" style="width:200px; height:200px;"></img></div>
+					<div><img src="{{ url('images/sejarah/'.$sejarah->sj_gambar)}}" style="width:200px; height:200px;"></img></div>
 		    	<input type="file" class="form-control-file" name="images" id="images">
 			</div>
 		</div>

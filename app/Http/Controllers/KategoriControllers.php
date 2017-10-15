@@ -18,7 +18,8 @@ class KategoriControllers extends Controller
     public function index()
     {
 
-        $data = KategoriSejarah::all();
+        $data = KategoriSejarah::orderBy('ks_id','desc')
+                                ->get();
         return view('kategori.show_data_kategori')->with('data',$data);
     }
 
@@ -58,7 +59,7 @@ class KategoriControllers extends Controller
        
        $input = KategoriSejarah::create($data);
 
-       $destinationPath = public_path('/images');
+       $destinationPath = public_path('/images/kategori');
        $upload = $file->move($destinationPath, $file->getClientOriginalName());
 
        return redirect()->back()->with('success','Successfully')->withInput();
@@ -136,7 +137,7 @@ class KategoriControllers extends Controller
         ];
 
         $kategori::find($id)->update($data);
-        $destinationPath = public_path('/images');
+        $destinationPath = public_path('/images/kategori');
         $upload = $file->move($destinationPath, $file->getClientOriginalName());
 
         Session::flash('success', 'Updated Successfully!!');

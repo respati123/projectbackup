@@ -39,7 +39,7 @@
 
 			<label for="Images" class="col-sm-2 col-form-label">Images</label>
 			<div class="col-sm-10">
-				<img src="{{ public_path('images/'.$kategori->ks_gambar) }}" height="150" />
+				<div><img src="{{ url('images/'.$kategori->ks_gambar)}}" style="width:200px; height:200px;"></img></div>
 		    	{!! Form::file('images',null,['class'=>'form-control']) !!}
 			</div>
 		</div>

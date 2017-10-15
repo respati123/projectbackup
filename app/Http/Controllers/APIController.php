@@ -16,13 +16,15 @@ class APIController extends Controller
 {
 
     public function getSliderSejarah(){
+
+
         $kategori = Sejarah::inRandomOrder()->limit(5)->get();
         $response = fractal()
             ->collection($kategori)
             ->transformWith(new RandomSejarahTransformer)
             ->toArray();
-
-        return response()->json($response,200); 
+        
+        return json_encode($response,200,JSON_UNESCAPED_SLASHES); 
         
     }
 
@@ -44,7 +46,7 @@ class APIController extends Controller
             ->transformWith(new KategoriSejarahTransformer)
             ->toArray();
 
-        return response()->json($response,200); 
+        return json_encode($response,200,JSON_UNESCAPED_SLASHES);
         
     }
 

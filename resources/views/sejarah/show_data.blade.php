@@ -28,6 +28,7 @@
 		            <tr>
 		              <th>No</th>
 		              <th>Name</th>
+		              <th>Category</th>
 		              <th>Action</th>
 		            </tr>
 		          </thead>	
@@ -40,12 +41,19 @@
 		            	<tr>
 							<td>{{ $no++ }}</td>
 		            		<td>{{ $d->sj_nama}}</td>
-		            		<td><a href="{{ URL::to('sejarah/' . $d->sj_id . '/edit') }}" class="btn btn-info">Edit</a> | 
-							{{ Form::open(array('url' => 'sejarah/' . $d->sj_id)) }}
-			                    {{ Form::hidden('_method', 'DELETE') }}
-			                    {{ Form::submit('Delete', array('class' => 'btn btn-warning')) }}
-			                {{ Form::close() }}
-		            		
+		            		<td>{{ $d->kategori->ks_nama}}</td>
+		            		<td>
+		            			<div class="container">
+		            				<div class="row">
+		            					<a href="{{ URL::to('sejarah/' . $d->sj_id . '/edit') }}" class="btn btn-info">Edit</a> &nbsp &nbsp 
+										{{ Form::open(array('url' => 'sejarah/' . $d->sj_id)) }}
+						                    {{ Form::hidden('_method', 'DELETE') }}
+						                    {{ Form::submit('Delete', array('class' => 'btn btn-warning')) }}
+						                {{ Form::close() }}
+		            				</div>
+		            			</div>
+			            		
+		            		</td>
 
 		            	</tr>
 		            @endforeach
