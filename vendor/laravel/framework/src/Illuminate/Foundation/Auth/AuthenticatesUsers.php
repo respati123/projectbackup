@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 trait AuthenticatesUsers
 {
     use RedirectsUsers, ThrottlesLogins;
-
+    
     /**
      * Show the application's login form.
      *
@@ -28,8 +28,9 @@ trait AuthenticatesUsers
      */
     public function login(Request $request)
     {
+        
         $this->validateLogin($request);
-
+        
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -114,7 +115,15 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        $previous_session = $user->session_id;
+        
+            if ($previous_session) {
+                \Session::getHandler()->destroy($previous_session);
+            }
+        
+            Auth::user()->session_id = \Session::getId();
+            Auth::user()->save();
+            return redirect()->intended($this->redirectPath());
     }
 
     /**
