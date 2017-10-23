@@ -26,6 +26,9 @@ class IncludeColoumIdUsers extends Migration
      */
     public function down()
     {
-        Schema::dropColumn('session_id');
+        Schema::table('users', function($table)
+        {
+            $table->dropColumn('session_id');
+        });
     }
 }

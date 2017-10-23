@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\KategoriSejarah;
+use App\Gallery;
 
 class Sejarah extends Model
 {
@@ -27,4 +28,10 @@ class Sejarah extends Model
         $query = Sejarah::all();
         return count($query);
     }
+
+    public function gallery(){
+        return $this->belongsTo(Gallery::class, 'sj_id');
+    }
+
+    
 }

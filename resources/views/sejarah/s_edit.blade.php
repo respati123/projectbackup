@@ -34,7 +34,7 @@
 	    <div class="form-group row">
 	      <label for="nama_sejarah" class="col-sm-2 col-form-label">History Name</label>
 	      <div class="col-sm-10">
-	        <input type="text" class="form-control" value="{{$sejarah->sj_nama}}" id="nama_sejarah" name="nama_sejarah" placeholder="Nama Sejarah">
+	        <input type="text" class="form-control" value="{{$sejarah->sj_nama}}" id="nama_sejarah" name="namasejarah" placeholder="Nama Sejarah">
 	      </div>
 	    </div>
 	    <div class="form-group row">

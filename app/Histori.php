@@ -14,7 +14,7 @@ class Histori extends Model
         'hp_id','us_id', 'hp_deskripsi'
     ];
             
-    public function sejarah(){
+    public function user(){
         return $this->belongsTo(User::class);
     }
             

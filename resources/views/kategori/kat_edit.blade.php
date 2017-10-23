@@ -32,14 +32,14 @@
 	    <div class="form-group row">
 	      <label for="nama_kategori" class="col-sm-2 col-form-label">Category Name</label>
 	      <div class="col-sm-10">
-	       {!! Form::text('nama_kategori', $kategori->ks_nama, ['class' => 'form-control']) !!}
+	       {!! Form::text('namakategori', $kategori->ks_nama, ['class' => 'form-control']) !!}
 	      </div>
 	    </div>
 	    <div class="form-group row">
 
 			<label for="Images" class="col-sm-2 col-form-label">Images</label>
 			<div class="col-sm-10">
-				<div><img src="{{ url('images/'.$kategori->ks_gambar)}}" style="width:200px; height:200px;"></img></div>
+				<div><img src="{{ url('images/kategori/'.$kategori->ks_gambar)}}" style="width:200px; height:200px;"></img></div>
 		    	{!! Form::file('images',null,['class'=>'form-control']) !!}
 			</div>
 		</div>

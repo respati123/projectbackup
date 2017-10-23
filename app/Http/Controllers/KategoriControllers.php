@@ -5,10 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\KategoriSejarah;
 use Session;
+use App\Traits\HistoryAdmin;
+use Auth;
+
 
 class KategoriControllers extends Controller
 {
     
+    use HistoryAdmin;
+
+    protected  $table = 'kategori';
+
+    protected  $exec  = null;
+
 
     public function __construct(){
 
@@ -55,12 +64,15 @@ class KategoriControllers extends Controller
 
             'ks_nama'   => $request->namakategori,
             'ks_gambar' => $file->getClientOriginalName(),
+            'ks_jumlah' => 0
        ];
        
        $input = KategoriSejarah::create($data);
 
        $destinationPath = public_path('/images/kategori');
        $upload = $file->move($destinationPath, $file->getClientOriginalName());
+
+       $this->HistoryUsers($this->getUsers(), $request->namakategori,$this->exec = "tambah",$this->table);
 
        return redirect()->back()->with('success','Successfully')->withInput();
 
@@ -106,16 +118,18 @@ class KategoriControllers extends Controller
 
            $this->validate($request,[
 
-                'nama_kategori' => 'required|max:50'
+                'namakategori' => 'required|max:50'
             ]);
 
             $data = [
 
-                'ks_nama' => $request->nama_kategori
+                'ks_nama' => $request->namakategori
             ];
 
             $kategori::find($id)->update($data);
 
+            $this->HistoryUsers($this->getUsers(), $request->namakategori,$this->exec = "edit",$this->table);
+            
             Session::flash('success', 'Updated Successfully!!');
 
             return redirect()->back();
@@ -124,7 +138,7 @@ class KategoriControllers extends Controller
 
         $this->validate($request, [
 
-            'nama_kategori' => 'required|max:50',
+            'namakategori'  => 'required|max:50',
             'images'        => 'required|image|mimes:png,jpeg,jpg|max:2048'
 
         ]);
@@ -132,14 +146,19 @@ class KategoriControllers extends Controller
         $file = $request->file('images');
         $data = [
 
-            'ks_nama'   => $request->nama_kategori,
+            'ks_nama'   => $request->namakategori,
             'ks_gambar' => $file->getClientOriginalName(),
         ];
 
         $kategori::find($id)->update($data);
+
         $destinationPath = public_path('/images/kategori');
+        
         $upload = $file->move($destinationPath, $file->getClientOriginalName());
 
+        $this->HistoryUsers($this->getUsers(), $request->namakategori,$this->exec = "edit",$this->table);
+
+        
         Session::flash('success', 'Updated Successfully!!');
 
         return redirect()->back();
@@ -156,12 +175,14 @@ class KategoriControllers extends Controller
      */
     public function destroy($id)
     {   
-
         $kategori = KategoriSejarah::find($id);
+        $this->HistoryUsers($this->getUsers(), $kategori->ks_nama,$this->exec = "kurang",$this->table);
         $kategori->delete();
-
+        
         // redirect
         Session::flash('message', 'Successfully deleted!');
         return redirect()->back();
     }
+
+   
 }

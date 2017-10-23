@@ -21,7 +21,7 @@ class CreateHistoriPenggunaTable extends Migration
         });
 
         Schema::table('histori_pengguna', function (Blueprint $table) {
-            $table->foreign('us_id')->references('id')->on('users')->onDelete('cascade');            
+            $table->foreign('us_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');            
         });
     }
 

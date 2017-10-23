@@ -41,7 +41,7 @@
 		            	<tr>
 							<td>{{ $no++ }}</td>
 		            		<td>{{ $d->sj_nama}}</td>
-		            		<td>{{ $d->kategori->ks_nama}}</td>
+		            		<td>{{ $d->ks_nama}}</td>
 		            		<td>
 		            			<div class="container">
 		            				<div class="row">
@@ -50,6 +50,8 @@
 						                    {{ Form::hidden('_method', 'DELETE') }}
 						                    {{ Form::submit('Delete', array('class' => 'btn btn-warning')) }}
 						                {{ Form::close() }}
+														&nbsp &nbsp
+													<a href="{{ URL::to('sejarah/gallery/'.$d->sj_id) }}" class="btn btn-info">Gallery <span class="badge badge-pill badge-danger">{{ $d->count}}</span></a>
 		            				</div>
 		            			</div>
 			            		

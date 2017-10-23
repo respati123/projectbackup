@@ -26,7 +26,7 @@ class CreateSejarahTable extends Migration
         });
 
         Schema::table('sejarah', function (Blueprint $table) {
-            $table->foreign('ks_id')->references('ks_id')->on('kategori_sejarah')->onDelete('cascade');            
+            $table->foreign('ks_id')->references('ks_id')->on('kategori_sejarah')->onDelete('cascade')->onUpdate('cascade');          
         });
     }
 

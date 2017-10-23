@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use App\Sejarah;
 
 class KategoriSejarah extends Model
@@ -36,6 +37,17 @@ class KategoriSejarah extends Model
             dd($ex->getMessage()); 
             
           }
+    }
+
+    public static function incOrDecCount($old, $new){
+
+        if($old != $new){
+
+            KategoriSejarah::find($new)->increment('ks_jumlah', 1);
+            KategoriSejarah::find($old)->decrement('ks_jumlah', 1);
+
+            
+        }
     }
 
 }

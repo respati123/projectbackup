@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Sejarah;
 use App\KategoriSejarah;
 use Session;
+use App\Traits\HistoryAdmin;
+use DB;
 
 class SejarahControllers extends Controller
 {
@@ -14,11 +16,28 @@ class SejarahControllers extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    use HistoryAdmin;
+    
+    protected $table = "sejarah";
+
+    protected $exec  = null;
     
 
     public function index()
-    {
-        $data = Sejarah::orderBy('sj_id','desc')->get();
+    {   
+        $data = DB::select("select s.sj_id, s.sj_nama, (
+            
+            select count(gallery_sejarah.gs_id) 
+            from gallery_sejarah 
+            where gallery_sejarah.sj_id = s.sj_id
+        ) as 'count', (
+            SELECT k.ks_nama
+            from kategori_sejarah as k
+            where k.ks_id = s.ks_id
+        ) as 'ks_nama'
+        from sejarah as s
+        order by s.sj_id desc");
+
         return view('sejarah.show_data')->with('data',$data);
     }
 
@@ -71,7 +90,11 @@ class SejarahControllers extends Controller
         KategoriSejarah::IncreaseCount($request->kategori_sejarah);
 
         Sejarah::create($data);
+
+        $this->HistoryUsers($this->getUsers(),$request->namasejarah,$exec = "tambah",$this->table);
+
         $destinationPath = public_path('/images/sejarah');
+
         $upload = $file->move($destinationPath, $file->getClientOriginalName());
 
         return redirect()->back()->with('success','Successfully')->withInput();
@@ -119,7 +142,7 @@ class SejarahControllers extends Controller
 
             $this->validate($request, [
 
-                'nama_sejarah'          => 'required|max:50',
+                'namasejarah'          => 'required|max:50',
                 'kategori_sejarah'      => 'required',
                 'alamat'                => 'required',
                 'lng'                   => 'required',
@@ -134,7 +157,7 @@ class SejarahControllers extends Controller
 
             $data  = [
 
-                'sj_nama'       => $request->nama_sejarah,
+                'sj_nama'       => $request->namasejarah,
                 'ks_id'         => $request->kategori_sejarah,
                 'sj_alamat'     => $request->alamat,
                 'sj_lng'        => $request->lng,
@@ -146,18 +169,29 @@ class SejarahControllers extends Controller
 
             ];
             
+            
+            
+            $kategori = Sejarah::find($id);
+ 
+            KategoriSejarah::incOrDecCount($kategori->ks_id,$request->kategori_sejarah);
+
             $sejarah::find($id)->update($data);
+
+            $this->HistoryUsers($this->getUsers(),$request->namasejarah,$exec = "edit", $this->table);
+
             $path       = public_path('/images/sejarah');
+
             $upload     = $file->move($path, $file->getClientOriginalName());
 
             Session::flash('success', 'Updated Successfully!!');
+            
             
             return redirect()->back();
         } 
 
         $this->validate($request, [
             
-            'nama_sejarah'          => 'required|max:50',
+            'namasejarah'          => 'required|max:50',
             'kategori_sejarah'      => 'required',
             'alamat'                => 'required',
             'lng'                   => 'required',
@@ -169,7 +203,7 @@ class SejarahControllers extends Controller
 
         $data  = [
             
-            'sj_nama'       => $request->nama_sejarah,
+            'sj_nama'       => $request->namasejarah,
             'ks_id'         => $request->kategori_sejarah,
             'sj_alamat'     => $request->alamat,
             'sj_lng'        => $request->lng,
@@ -180,9 +214,13 @@ class SejarahControllers extends Controller
 
         ];
 
+        $kategori = Sejarah::find($id);
         
+        KategoriSejarah::incOrDecCount($kategori->ks_id,$request->kategori_sejarah);
 
         $sejarah::find($id)->update($data);
+
+        $this->HistoryUsers($this->getUsers(),$request->namasejarah,$exec = "edit", $this->table);
 
         Session::flash('success', 'Updated Successfully!!');
         
@@ -199,6 +237,9 @@ class SejarahControllers extends Controller
     {
         
         $sejarah = Sejarah::find($id);
+
+        $this->HistoryUsers($this->getUsers(),$sejarah->sj_nama,$exec = "kurang", $this->table);
+        
         $sejarah->delete();
 
         // redirect
