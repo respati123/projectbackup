@@ -17,18 +17,18 @@ class SejarahControllers extends Controller
      * @return \Illuminate\Http\Response
      */
     use HistoryAdmin;
-    
+
     protected $table = "sejarah";
 
     protected $exec  = null;
-    
+
 
     public function index()
-    {   
+    {
         $data = DB::select("select s.sj_id, s.sj_nama, (
-            
-            select count(gallery_sejarah.gs_id) 
-            from gallery_sejarah 
+
+            select count(gallery_sejarah.gs_id)
+            from gallery_sejarah
             where gallery_sejarah.sj_id = s.sj_id
         ) as 'count', (
             SELECT k.ks_nama
@@ -62,14 +62,14 @@ class SejarahControllers extends Controller
     {
         $this->validate($request, [
 
-            'nama_sejarah'          => 'required|max:50',
+            'namasejarah'           => 'required|max:50',
             'kategori_sejarah'      => 'required',
             'images'                => 'required|image|mimes:png,jpeg,jpg|max:2048',
             'alamat'                => 'required',
             'lat'                   => 'required',
             'lng'                   => 'required',
             'description'           => 'required',
-            'link'                  => 'required'    
+            'link'                  => 'required'
 
         ]);
 
@@ -77,7 +77,7 @@ class SejarahControllers extends Controller
         $data    = [
 
             'ks_id'         => $request->kategori_sejarah,
-            'sj_nama'       => $request->nama_sejarah,
+            'sj_nama'       => $request->namasejarah,
             'sj_alamat'     => $request->alamat,
             'sj_deskripsi'  => $request->description,
             'sj_lat'        => $request->lat,
@@ -119,13 +119,13 @@ class SejarahControllers extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
 
         $data = Sejarah::findOrFail($id);
         $listKategori = KategoriSejarah::all();
 
         return view('sejarah.s_edit')->with(['sejarah'=>$data,'kategori'=>$listKategori]);
-        
+
     }
 
     /**
@@ -168,11 +168,11 @@ class SejarahControllers extends Controller
 
 
             ];
-            
-            
-            
+
+
+
             $kategori = Sejarah::find($id);
- 
+
             KategoriSejarah::incOrDecCount($kategori->ks_id,$request->kategori_sejarah);
 
             $sejarah::find($id)->update($data);
@@ -184,13 +184,13 @@ class SejarahControllers extends Controller
             $upload     = $file->move($path, $file->getClientOriginalName());
 
             Session::flash('success', 'Updated Successfully!!');
-            
-            
+
+
             return redirect()->back();
-        } 
+        }
 
         $this->validate($request, [
-            
+
             'namasejarah'          => 'required|max:50',
             'kategori_sejarah'      => 'required',
             'alamat'                => 'required',
@@ -202,7 +202,7 @@ class SejarahControllers extends Controller
         ]);
 
         $data  = [
-            
+
             'sj_nama'       => $request->namasejarah,
             'ks_id'         => $request->kategori_sejarah,
             'sj_alamat'     => $request->alamat,
@@ -215,7 +215,7 @@ class SejarahControllers extends Controller
         ];
 
         $kategori = Sejarah::find($id);
-        
+
         KategoriSejarah::incOrDecCount($kategori->ks_id,$request->kategori_sejarah);
 
         $sejarah::find($id)->update($data);
@@ -223,7 +223,7 @@ class SejarahControllers extends Controller
         $this->HistoryUsers($this->getUsers(),$request->namasejarah,$exec = "edit", $this->table);
 
         Session::flash('success', 'Updated Successfully!!');
-        
+
         return redirect()->back();
     }
 
@@ -235,11 +235,11 @@ class SejarahControllers extends Controller
      */
     public function destroy($id)
     {
-        
+
         $sejarah = Sejarah::find($id);
 
         $this->HistoryUsers($this->getUsers(),$sejarah->sj_nama,$exec = "kurang", $this->table);
-        
+
         $sejarah->delete();
 
         // redirect

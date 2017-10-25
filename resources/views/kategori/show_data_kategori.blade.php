@@ -2,7 +2,7 @@
 
 @section('content')
 
-	
+
 		<div class="card">
 		  <div class="card-header">
 		    <div class="row">
@@ -29,9 +29,9 @@
 		              <th>No</th>
 		              <th>Name</th>
 		              <th>Action</th>
-		              
+
 		            </tr>
-		          </thead>	
+		          </thead>
 		          <tbody>
 					@php
 						$no=1;
@@ -44,8 +44,8 @@
 		            		<td>
 		            			<div class="container">
 		            				<div class="row">
-			            				<a href="{{ URL::to('kategori/' . $d->ks_id . '/edit') }}" class="btn btn-info">Edit</a> &nbsp &nbsp 
-										{{ Form::open(array('url' => 'kategori/' . $d->ks_id)) }}
+			            				<a href="{{ URL::to('kategori/' . $d->ks_id . '/edit') }}" class="btn btn-info">Edit</a> &nbsp &nbsp
+										{{ Form::open(array('url' => 'kategori/' . $d->ks_id, 'onsubmit'=>'return confirm("are you sure for delete this file?");')) }}
 						                    {{ Form::hidden('_method', 'DELETE') }}
 						                    {{ Form::submit('Delete', array('class' => 'btn btn-warning')) }}
 						                {{ Form::close() }}
@@ -57,7 +57,7 @@
 		          </tbody>
 		        </table>
 		       </div>
-		       
+
 
 			  <div class="card-footer small text-muted">
 			    Updated yesterday at 11:59 PM
