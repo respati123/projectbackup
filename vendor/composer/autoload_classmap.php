@@ -36,6 +36,8 @@ return array(
     'App\\Sejarah' => $baseDir . '/app/Sejarah.php',
     'App\\Traits\\HistoryAdmin' => $baseDir . '/app/Traits/HistoryAdmin.php',
     'App\\Transformers\\DetailSejarahTransformer' => $baseDir . '/app/Transformers/DetailSejarahTransformer.php',
+    'App\\Transformers\\GallerySejarahTransformer' => $baseDir . '/app/Transformers/GallerySejarahTransformer.php',
+    'App\\Transformers\\ImagesGalleryTransformer' => $baseDir . '/app/Transformers/ImagesGalleryTransformer.php',
     'App\\Transformers\\KategoriSejarahTransformer' => $baseDir . '/app/Transformers/KategoriSejarahTransformer.php',
     'App\\Transformers\\ListMapsSejarahTransformer' => $baseDir . '/app/Transformers/ListMapsSejarahTransformer.php',
     'App\\Transformers\\ListSejarahTransformer' => $baseDir . '/app/Transformers/ListSejarahTransformer.php',

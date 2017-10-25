@@ -16,7 +16,7 @@ class Sejarah extends Model
     protected $fillable = [
         'sj_id','ks_id','sj_nama','sj_alamat','sj_deskripsi','sj_lat','sj_lng','sj_youtube','sj_gambar'
     ];
-                
+
     public function kategori(){
         return $this->belongsTo(KategoriSejarah::class, 'ks_id');
     }
@@ -30,8 +30,8 @@ class Sejarah extends Model
     }
 
     public function gallery(){
-        return $this->belongsTo(Gallery::class, 'sj_id');
+        return $this->hasMany(Gallery::class, 'sj_id');
     }
 
-    
+
 }

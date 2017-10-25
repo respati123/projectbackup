@@ -12,13 +12,17 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+$options = [
+    'middleware' => 'auth:api',
+];
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group($options, function() {
+
+  Route::get('/getslider','APIController@getSliderSejarah');
+  Route::get('/getmaps','APIController@getMapsSejarah');
+  Route::get('/getkategori','APIController@getKategoriSejarah');
+  Route::get('/getlist/{id}','APIController@getListSejarah');
+  Route::get('/getdetail/{id}','APIController@getDetailSejarah');
+  Route::get('/getgallery/{id}','APIController@getGallerySejarah');
+
 });
-
-Route::get('/getslider','APIController@getSliderSejarah');
-Route::get('/getmaps','APIController@getMapsSejarah');
-Route::get('/getkategori','APIController@getKategoriSejarah');
-Route::get('/getlist/{id}','APIController@getListSejarah');
-Route::get('/getdetail/{id}','APIController@getDetailSejarah');

@@ -352,6 +352,8 @@ class ComposerStaticInite773965ba0de22e1dc445016d6d5f397
         'App\\Sejarah' => __DIR__ . '/../..' . '/app/Sejarah.php',
         'App\\Traits\\HistoryAdmin' => __DIR__ . '/../..' . '/app/Traits/HistoryAdmin.php',
         'App\\Transformers\\DetailSejarahTransformer' => __DIR__ . '/../..' . '/app/Transformers/DetailSejarahTransformer.php',
+        'App\\Transformers\\GallerySejarahTransformer' => __DIR__ . '/../..' . '/app/Transformers/GallerySejarahTransformer.php',
+        'App\\Transformers\\ImagesGalleryTransformer' => __DIR__ . '/../..' . '/app/Transformers/ImagesGalleryTransformer.php',
         'App\\Transformers\\KategoriSejarahTransformer' => __DIR__ . '/../..' . '/app/Transformers/KategoriSejarahTransformer.php',
         'App\\Transformers\\ListMapsSejarahTransformer' => __DIR__ . '/../..' . '/app/Transformers/ListMapsSejarahTransformer.php',
         'App\\Transformers\\ListSejarahTransformer' => __DIR__ . '/../..' . '/app/Transformers/ListSejarahTransformer.php',

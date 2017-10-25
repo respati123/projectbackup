@@ -18,7 +18,10 @@ class Gallery extends Model{
 
     public $timestamps = false;
 
-    
+    public function sejarah(){
+
+      return $this->belongsTo(Sejarah::class, 'sj_id');
+    }
 
 }
 
